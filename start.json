@@ -1,0 +1,7 @@
+{
+  "StartApp": {
+    "action": "click",
+    "recognization": "TemplateMatch",
+    "template ": "app.png"
+  }
+}
