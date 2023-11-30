@@ -62,3 +62,4 @@ bool WindowCapture::saveImg(cv::Mat saveImg)
     cv::imwrite("save.jpg", saveImg);
     return true;
 }
+
