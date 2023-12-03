@@ -46,8 +46,8 @@ cv::Mat WindowCapture::capture()
 
     // 将窗口内容拷贝到位图中
     BitBlt(hdcMemDC, 0, 0, width, height, hdcWindow, 0, 0, SRCCOPY);
-    cv::Mat mat(height, width, CV_8UC4);
-    BITMAPINFOHEADER bi = { sizeof(bi), width, -height, 1, 32, BI_RGB };
+    cv::Mat mat(height, width, CV_8UC3);
+    BITMAPINFOHEADER bi = { sizeof(bi), width, -height, 1, 24, BI_RGB };
     GetDIBits(hdcMemDC, hBitmap, 0, height, mat.data, (BITMAPINFO*)&bi, DIB_RGB_COLORS);
 
     // 释放资源

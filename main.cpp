@@ -6,6 +6,7 @@
 #include "WindowCapture.h"
 #include "WindowConfig.h"
 #include <json/json.h>
+#include "OpencvAPI.h"
 using namespace cv;
 using namespace std;
 
@@ -13,8 +14,11 @@ int main()
 {
 	WindowConfig config;
 	WindowCapture* capture = new WindowCapture(config);
+	cv::Mat templateImg = cv::imread("template.png");
 	cv::Mat img = capture->capture();
 	capture->saveImg(img);
+	OpencvAPI* api = new OpencvAPI();
+	api->TemplateMatch(img, templateImg, 0.99, 1);
 	return 0;
 }
 
