@@ -14,11 +14,11 @@ int main()
 {
 	WindowConfig config;
 	WindowCapture* capture = new WindowCapture(config);
-	cv::Mat templateImg = cv::imread("template.png");
+	cv::Mat templateImg = cv::imread("template2.png");
 	cv::Mat img = capture->capture();
 	capture->saveImg(img);
 	OpencvAPI* api = new OpencvAPI();
-	api->TemplateMatch(img, templateImg, 0.99, 1);
+	api->MultiTemplateMatch(img, templateImg, 0.9, 1);
 	return 0;
 }
 
