@@ -24,6 +24,24 @@
     <ClCompile Include="WindowConfig.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="CommonMath.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseController.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OpencvAPI.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TaskManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TaskRunner.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowCapture.h">
@@ -32,8 +50,27 @@
     <ClInclude Include="WindowConfig.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CommonMath.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseController.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OpencvAPI.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskRunner.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="config.json" />
+    <None Include="start.json" />
   </ItemGroup>
 </Project>
