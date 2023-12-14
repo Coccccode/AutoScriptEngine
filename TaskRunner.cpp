@@ -2,15 +2,15 @@
 
 TaskRunner::TaskRunner()
 {
-	std::string filepath = taskName + ".json";
+	//std::string filepath = taskName + ".json";
 
-	Json::Value root;
+	//Json::Value root;
 
-    Json::StyledWriter writer;
-    std::ofstream os;
-    os.open(filepath);
-    os << writer.write(root);
-    os.close();
+ //   Json::StyledWriter writer;
+ //   std::ofstream os;
+ //   os.open(filepath);
+ //   os << writer.write(root);
+ //   os.close();
 
 }
 

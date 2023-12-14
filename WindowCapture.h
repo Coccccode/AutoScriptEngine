@@ -14,5 +14,6 @@ public:
 	WindowCapture(WindowConfig config);
 	cv::Mat capture();
 	bool saveImg(cv::Mat saveImg);
+	HWND getHwnd();
 };
 

@@ -29,7 +29,7 @@ std::vector<cv::Point> OpencvAPI::MultiTemplateMatch(cv::Mat screenImg,cv::Mat t
 	return pointList;
 }
 
-cv::Point OpencvAPI::TemplateMatch(cv::Mat screenImg, cv::Mat templateImg, double threshold, int type)
+cv::Point OpencvAPI::TemplateMatch(cv::Mat screenImg, cv::Mat templateImg, double threshold, int type,bool &isTrue)
 {
     cv::Point point;
     cv::Mat result;
@@ -46,11 +46,13 @@ cv::Point OpencvAPI::TemplateMatch(cv::Mat screenImg, cv::Mat templateImg, doubl
     if (maxVal >= threshold) {
         cv::rectangle(screenImg, maxLoc, cv::Point(maxLoc.x + templateImg.cols, maxLoc.y + templateImg.rows), cv::Scalar(0, 255, 0), 2);
         point = cv::Point(maxLoc.x + templateImg.cols / 2, maxLoc.y + templateImg.rows / 2);
+        isTrue = true;
+        std::cout << "匹配成功" << std::endl;
     }
-    // 显示结果
-    cv::imshow("Matched Result", screenImg);
-    cv::waitKey(0);
-    cv::destroyAllWindows();
+    else
+    {
+        isTrue = false;
+    }
     return point;
 }
 

@@ -3,7 +3,7 @@
 int CommonMath::random(int min, int max)
 {
 	srand((int)time(0));
-	return rand() % (max + 1) + min;
+	return rand() % (max - min) + min;
 }
 
 double CommonMath::randomF(double min, double max)

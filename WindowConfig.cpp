@@ -2,7 +2,7 @@
 
 WindowConfig::WindowConfig()
 {
-	this->windowName = L"À×µçÄ£ÄâÆ÷";
+	this->windowName = L"MuMuÄ£ÄâÆ÷12";
 	this->isSub = true;
 
 }

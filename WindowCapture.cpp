@@ -63,3 +63,8 @@ bool WindowCapture::saveImg(cv::Mat saveImg)
     return true;
 }
 
+HWND WindowCapture::getHwnd()
+{
+    return hwnd;
+}
+
