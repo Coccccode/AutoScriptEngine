@@ -10,12 +10,11 @@ WindowCapture::WindowCapture(WindowConfig config)
 {
 	this->config = config;
 	hwnd = ::FindWindowW(NULL, config.windowName);
-	if (config.isSub)
+	if (hwnd != NULL && config.isSub)
 	{
 		hwnd = ::FindWindowExW(hwnd, NULL, NULL, NULL);
 	}
-    std::cout << "句柄为" << hwnd;
-    RECT rcClient;
+    RECT rcClient; 
     GetClientRect(hwnd, &rcClient);
 
     // 创建位图

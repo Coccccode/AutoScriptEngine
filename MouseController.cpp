@@ -10,9 +10,16 @@ void MouseController::click_point_random(unsigned long x, unsigned long y, HWND&
 };
 void MouseController::click_point(unsigned long x, unsigned long y, HWND& hWnd)
 {
-	int sleepTime = CommonMath::random(200, 500);
-	std::this_thread::sleep_for(std::chrono::milliseconds(sleepTime));
+	int sleepTime = CommonMath::random(100, 200);
 	SendMessage(hWnd, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(x, y));
+    std::this_thread::sleep_for(std::chrono::milliseconds(sleepTime));
+	SendMessage(hWnd, WM_LBUTTONUP, MK_LBUTTON, MAKELPARAM(x, y));
+}
+void MouseController::long_click_point(unsigned long x, unsigned long y, HWND& hWnd)
+{
+	int sleepTime = CommonMath::random(1000, 1500);
+	SendMessage(hWnd, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(x, y));
+    std::this_thread::sleep_for(std::chrono::milliseconds(sleepTime));
 	SendMessage(hWnd, WM_LBUTTONUP, MK_LBUTTON, MAKELPARAM(x, y));
 }
 void MouseController::click_area_random(cv::Point a, cv::Point b, HWND& hWnd)
