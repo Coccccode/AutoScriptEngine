@@ -154,7 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="config.json" />
-    <None Include="start.json" />
+    <None Include="Start.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

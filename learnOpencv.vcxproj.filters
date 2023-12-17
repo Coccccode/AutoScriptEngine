@@ -71,6 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="config.json" />
-    <None Include="start.json" />
+    <None Include="Start.json" />
   </ItemGroup>
 </Project>
