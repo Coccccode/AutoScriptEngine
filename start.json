@@ -1,7 +1,36 @@
 {
-  "StartApp": {
-    "action": "click",
-    "recognization": "TemplateMatch",
-    "template ": "app.png"
-  }
+  "Start": {
+    "type": "task",
+    "next":[
+        "StartApp"
+    ]
+    },
+    "StartApp": {
+        "action": "click",
+        "recognization": "TemplateMatch",
+        "template": "app.png",
+        "next":[]
+        },
+    "IsMain": {
+        "action": "click",
+        "recognization":"TemplateMatch",
+        "template":"gameload.png",
+        "next":[
+            "GameStart"
+        ]
+    },
+    "GameStart":{
+        "action":"click",
+        "recognization":"TemplateMatch",
+        "template":"gamestart.png",
+        "next":[
+            "InMainMenu"
+        ]
+    },
+    "InMainMenu":{
+        "action":"null",
+        "next":[
+            
+        ]
+    }
 }
