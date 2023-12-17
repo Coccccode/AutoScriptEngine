@@ -54,18 +54,23 @@ void TaskRunner::runTask(std::string taskName)
         }
         currentStep = root[nextStep[i].asString()];
         std::string action = currentStep["action"].asString();
+        int sleepTime = currentStep["delay"].asInt();
         bool isMatch = false;
         if (action == "click")
         {
             std::string templateImgPath = currentStep["template"].asString();
             cv::Mat templateImg = cv::imread(templateImgPath);
             cv::Mat captureImg = capture->capture();
-            cv::Point click_point = api->TemplateMatch(captureImg, templateImg, 0.99, 1, isMatch);
+            cv::Point click_point = api->TemplateMatch(captureImg, templateImg, 0.90, 1, isMatch);
             if (!isMatch)
             {
                 i++;
                 i = i % nextStep.size();
                 continue;
+            }
+            if (sleepTime > 0)
+            {
+                std::this_thread::sleep_for(std::chrono::seconds(sleepTime));
             }
             mouse->click_point_random(click_point, hwnd);
             i = 0;

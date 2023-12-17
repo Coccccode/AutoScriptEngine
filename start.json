@@ -9,22 +9,22 @@
         "action": "click",
         "recognization": "TemplateMatch",
         "template": "app.png",
-        "next":[]
+        "next":["IsMain"]
         },
     "IsMain": {
         "action": "click",
         "recognization":"TemplateMatch",
         "template":"gameload.png",
-        "next":[
-            "GameStart"
-        ]
+      "next": [
+        "GameStart"
+      ]
     },
     "GameStart":{
         "action":"click",
         "recognization":"TemplateMatch",
-        "template":"gamestart.png",
+      "template": "gamestart.png",
+        "delay":  1,
         "next":[
-            "InMainMenu"
         ]
     },
     "InMainMenu":{
