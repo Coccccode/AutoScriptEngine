@@ -2,7 +2,7 @@
 
 TaskRunner::TaskRunner()
 {
-    api = new OpencvAPI();
+    cvapi = new OpencvAPI();
     capture = new WindowCapture(config);
     mouse = new MouseController();
 }
@@ -61,7 +61,7 @@ void TaskRunner::runTask(std::string taskName)
             std::string templateImgPath = currentStep["template"].asString();
             cv::Mat templateImg = cv::imread(templateImgPath);
             cv::Mat captureImg = capture->capture();
-            cv::Point click_point = api->TemplateMatch(captureImg, templateImg, 0.70, 1, isMatch);
+            cv::Point click_point = cvapi->TemplateMatch(captureImg, templateImg, 0.70, 1, isMatch);
             if (!isMatch)
             {
                 i++;
@@ -114,6 +114,6 @@ Json::Value TaskRunner::readTaskJson(std::string filePath)
 
 TaskRunner::~TaskRunner()
 {
-    delete api;
+    delete cvapi;
     delete capture;
 }

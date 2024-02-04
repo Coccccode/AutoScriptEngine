@@ -42,6 +42,9 @@
     <ClCompile Include="TaskRunner.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="OcrApi.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowCapture.h">
@@ -68,9 +71,16 @@
     <ClInclude Include="TaskRunner.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="OcrApi.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="config.json" />
-    <None Include="Start.json" />
+    <None Include="config.json">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="Start.json">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

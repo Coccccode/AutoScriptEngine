@@ -42,19 +42,27 @@ cv::Point OpencvAPI::TemplateMatch(cv::Mat screenImg, cv::Mat templateImg, doubl
     int screenWidth = screenImg.cols;
     int screenHeight = screenImg.rows;
 
-    double scale = screenImg.cols / 1280.0 * 0.975;
+    double scale = screenImg.cols / 1280.0;
 
     int targetWidth = scale * templateWidth;
     int targetHeight = scale * templateHeight;
     if (screenWidth != 1280)
     {
-
+        cv::InterpolationFlags flags;
+        if (scale > 1.0)
+        {
+            flags = cv::INTER_LINEAR;
+        }
+        else
+        {
+            flags = cv::INTER_AREA;
+        }
         cv::Mat tempImg;
-        cv::resize(templateImg, tempImg, cv::Size(targetWidth, targetHeight), 0, 0, cv::INTER_AREA);
+        cv::resize(templateImg, tempImg, cv::Size(targetWidth, targetHeight), 0, 0, flags);
         templateImg = tempImg;
     }
 
-    cv::matchTemplate(screenImg, templateImg, result, cv::TM_CCOEFF_NORMED);
+    cv::matchTemplate(screenImg, templateImg, result, cv::TM_CCORR_NORMED);
     cv::minMaxLoc(result, &minVal, &maxVal, &minLoc, &maxLoc);
     // 绘制矩形框标记匹配位置
     if (maxVal >= threshold) {

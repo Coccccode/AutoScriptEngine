@@ -24,7 +24,7 @@ public:
 	Json::Value readTaskJson(std::string filePath);
 	Json::Value parseJsonFromString(const std::string& jsonString);
 	~TaskRunner();
-	OpencvAPI* api;
+	OpencvAPI* cvapi;
 	WindowCapture* capture;
 	WindowConfig config;
 	MouseController* mouse;

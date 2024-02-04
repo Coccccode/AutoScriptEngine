@@ -136,6 +136,7 @@
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseController.cpp" />
+    <ClCompile Include="OcrApi.cpp" />
     <ClCompile Include="OpencvAPI.cpp" />
     <ClCompile Include="TaskManager.cpp" />
     <ClCompile Include="TaskRunner.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="CommonMath.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="MouseController.h" />
+    <ClInclude Include="OcrApi.h" />
     <ClInclude Include="OpencvAPI.h" />
     <ClInclude Include="TaskManager.h" />
     <ClInclude Include="TaskRunner.h" />
