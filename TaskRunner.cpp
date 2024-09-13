@@ -61,12 +61,16 @@ void TaskRunner::runTask(std::string taskName)
             std::string templateImgPath = currentStep["template"].asString();
             cv::Mat templateImg = cv::imread(templateImgPath);
             cv::Mat captureImg = capture->capture();
-            cv::Point click_point = cvapi->TemplateMatch(captureImg, templateImg, 0.70, 1, isMatch);
+            cv::Point click_point = cvapi->TemplateMatch(captureImg, templateImg, 0.92, 1, isMatch);
             if (!isMatch)
             {
                 i++;
                 i = i % nextStep.size();
                 continue;
+            }
+            else
+            {
+                capture->saveImg(captureImg);
             }
             if (sleepTime > 0)
             {

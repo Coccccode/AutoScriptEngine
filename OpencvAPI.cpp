@@ -43,7 +43,6 @@ cv::Point OpencvAPI::TemplateMatch(cv::Mat screenImg, cv::Mat templateImg, doubl
     int screenHeight = screenImg.rows;
 
     double scale = screenImg.cols / 1280.0;
-
     int targetWidth = scale * templateWidth;
     int targetHeight = scale * templateHeight;
     if (screenWidth != 1280)
@@ -67,7 +66,7 @@ cv::Point OpencvAPI::TemplateMatch(cv::Mat screenImg, cv::Mat templateImg, doubl
     // 绘制矩形框标记匹配位置
     if (maxVal >= threshold) {
         cv::rectangle(screenImg, maxLoc, cv::Point(maxLoc.x + templateImg.cols, maxLoc.y + templateImg.rows), cv::Scalar(0, 255, 0), 2);
-        point = cv::Point(maxLoc.x + templateImg.cols / 2, maxLoc.y + templateImg.rows / 2);
+        point = cv::Point((maxLoc.x + templateImg.cols / 2)/2, (maxLoc.y + templateImg.rows / 2)/2);
         isTrue = true;
         std::cout << "匹配成功" << std::endl;
     }

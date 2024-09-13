@@ -1,0 +1,28 @@
+{
+  "HuoDong": {
+    "type": "task",
+    "next": [
+      "StartHuoDong"
+    ]
+  },
+  "StartHuoDong": {
+    "action": "click",
+    "recognization": "TemplateMatch",
+    "template": "app.png",
+    "next": [ "IsEnd" ]
+  },
+  "IsEnd": {
+    "action": "click",
+    "next": [
+      "GameEnd"
+    ],
+    "recognization": "TemplateMatch",
+    "template": "gameend.png"
+  },
+  "GameEnd": {
+    "delay": 1,
+    "next": [
+      "StartHuoDong"
+    ]
+  }
+}
