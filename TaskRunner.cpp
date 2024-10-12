@@ -3,6 +3,7 @@
 TaskRunner::TaskRunner()
 {
     cvapi = new OpencvAPI();
+    config = new WindowConfig("config.json");
     capture = new WindowCapture(config);
     mouse = new MouseController();
 }

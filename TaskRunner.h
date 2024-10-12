@@ -26,7 +26,7 @@ public:
 	~TaskRunner();
 	OpencvAPI* cvapi;
 	WindowCapture* capture;
-	WindowConfig config;
+	WindowConfig *config;
 	MouseController* mouse;
 };
 

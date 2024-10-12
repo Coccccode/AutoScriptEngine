@@ -6,11 +6,11 @@
 #include <cassert>
 #include <Windows.h>
 #include <memory>
-WindowCapture::WindowCapture(WindowConfig config)
+WindowCapture::WindowCapture(WindowConfig *config)
 {
 	this->config = config;
-	hwnd = ::FindWindowW(NULL, config.windowName);
-	if (hwnd != NULL && config.isSub)
+	hwnd = ::FindWindowA(NULL, config->windowName);
+	if (hwnd != NULL && config->isSub)
 	{
 		hwnd = ::FindWindowExW(hwnd, NULL, NULL, NULL);
 	}

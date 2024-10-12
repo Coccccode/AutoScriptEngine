@@ -6,12 +6,12 @@
 class WindowCapture
 {
 private:
-	WindowConfig config;
+	WindowConfig* config;
 	HWND hwnd = 0;
 	int width;
 	int height;
 public:
-	WindowCapture(WindowConfig config);
+	WindowCapture(WindowConfig *config);
 	cv::Mat capture();
 	bool saveImg(cv::Mat saveImg);
 	HWND getHwnd();
