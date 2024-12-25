@@ -9,7 +9,7 @@
 WindowCapture::WindowCapture(WindowConfig *config)
 {
 	this->config = config;
-	hwnd = ::FindWindowA(NULL, config->windowName);
+	hwnd = ::FindWindowW(NULL, config->windowName);
 	if (hwnd != NULL && config->isSub)
 	{
 		hwnd = ::FindWindowExW(hwnd, NULL, NULL, NULL);

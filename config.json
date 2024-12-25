@@ -1,4 +1,4 @@
 {
-  "issub": false,
-  "windowName": "1" //1 为雷电模拟器 2 为mumu模拟器
+  "issub": true,
+  "windowType": 1 //1 为雷电模拟器 2 为mumu模拟器
 }

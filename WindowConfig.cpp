@@ -2,7 +2,7 @@
 
 WindowConfig::WindowConfig()
 {
-	this->windowName = "雷电模拟器";
+	this->windowName = L"雷电模拟器";
 	this->isSub = true;
 
 }
@@ -41,6 +41,15 @@ Json::Value WindowConfig::readTaskJson(std::string filePath)
 WindowConfig::WindowConfig(std::string filepath)
 {
     Json::Value config = readTaskJson(filepath);
-    this->windowName = config["windowName"].asString().c_str();
+    this->windowType = config["windowType"].asInt();
     this->isSub = config["issub"].asBool();
+    switch (this->windowType)
+    {
+    case LEIDIAN:
+        this->windowName = L"雷电模拟器";
+        break;
+    case MUMU:
+        this->windowName = L"MuMu模拟器12";
+        break;
+    }
 }

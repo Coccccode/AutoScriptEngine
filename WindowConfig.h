@@ -16,7 +16,13 @@ public:
 	Json::Value parseJsonFromString(const std::string& jsonString);
 	Json::Value readTaskJson(std::string filePath);
 	WindowConfig(std::string filepath);
-	LPCSTR windowName;
+	LPCWSTR windowName;
+	enum WindowType
+	{
+		LEIDIAN = 1,
+		MUMU    = 2
+	};
+	int windowType;
 	bool isSub;
 	ControlType controlType;
 };
