@@ -1,36 +1,45 @@
 {
   "Start": {
     "type": "task",
-    "next":[
-        "StartApp"
+    "next": [
+      "OpenApp"
     ]
+  },
+  "OpenApp": {
+    "action": "click",
+    "recognization": "TemplateMatch",
+    "template": "resource/images/app.png",
+    "afterDelay": 16,
+    "next": [
+      "RandomClickAfterLaunch"
+    ]
+  },
+  "RandomClickAfterLaunch": {
+    "action": "click",
+    "recognization": "DirectHint",
+    "random": true,
+    "x1": 320,
+    "y1": 180,
+    "x2": 960,
+    "y2": 540,
+    "afterDelay": 3,
+    "next": [
+      "ClickGameStart"
+    ]
+  },
+  "ClickGameStart": {
+    "action": "click",
+    "recognization": "OCR",
+    "target": "\u8fdb\u5165\u6e38\u620f",
+    "ocrConfig": "config_chinese.txt",
+    "roi": {
+      "xRatio": 0,
+      "yRatio": 0.5,
+      "widthRatio": 1,
+      "heightRatio": 0.5
     },
-    "StartApp": {
-        "action": "click",
-        "recognization": "TemplateMatch",
-        "template": "app.png",
-        "next":["IsMain"]
-        },
-    "IsMain": {
-        "action": "click",
-        "recognization":"TemplateMatch",
-        "template":"gameload.png",
-      "next": [
-        "GameStart"
-      ]
-    },
-    "GameStart":{
-        "action":"click",
-        "recognization":"TemplateMatch",
-      "template": "gamestart.png",
-        "delay":  1,
-        "next":[
-        ]
-    },
-    "InMainMenu":{
-        "action":"null",
-        "next":[
-            
-        ]
-    }
+    "beforeDelay": 1,
+    "afterDelay": 1,
+    "next": []
+  }
 }

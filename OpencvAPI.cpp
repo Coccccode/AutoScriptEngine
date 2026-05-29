@@ -8,21 +8,21 @@ std::vector<cv::Point> OpencvAPI::MultiTemplateMatch(cv::Mat screenImg,cv::Mat t
     cv::Mat locations;
     int templateWidth = templateImg.cols;
     int templateHeight = templateImg.rows;
-    // ÔÚ½á¹û¾ØÕóÖÐÕÒµ½Æ¥ÅäÎ»ÖÃ
+    // ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½Æ¥ï¿½ï¿½Î»ï¿½ï¿½
     cv::Point minLoc, maxLoc;
     double minVal, maxVal;
     
-    cv::matchTemplate(screenImg, templateImg,result, cv::TM_CCOEFF_NORMED);
+    cv::matchTemplate(screenImg, templateImg, result, type);
     cv::minMaxLoc(result, &minVal, &maxVal, &minLoc, &maxLoc);
-    // »æÖÆ¾ØÐÎ¿ò±ê¼ÇÆ¥ÅäÎ»ÖÃ
+    // ï¿½ï¿½ï¿½Æ¾ï¿½ï¿½Î¿ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½Î»ï¿½ï¿½
     while (maxVal >= threshold) {
         cv::rectangle(screenImg, maxLoc, cv::Point(maxLoc.x + templateImg.cols, maxLoc.y + templateImg.rows), cv::Scalar(0, 255, 0), 2);
         pointList.push_back(cv::Point(maxLoc.x + templateImg.cols / 2, maxLoc.y + templateImg.rows / 2));
-        // ½«µ±Ç°ÕÒµ½µÄ×î´óÆ¥ÅäÖÃÎªãÐÖµÒÔÏÂ£¬¼ÌÐøÑ°ÕÒÏÂÒ»¸ö
+        // ï¿½ï¿½ï¿½ï¿½Ç°ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Öµï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
         result.at<float>(maxLoc.y, maxLoc.x) = 0;
         cv::minMaxLoc(result, &minVal, &maxVal, &minLoc, &maxLoc);
     }
-    // ÏÔÊ¾½á¹û
+    // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½
     cv::imshow("Matched Result", screenImg);
     cv::waitKey(0);
     cv::destroyAllWindows();
@@ -31,16 +31,15 @@ std::vector<cv::Point> OpencvAPI::MultiTemplateMatch(cv::Mat screenImg,cv::Mat t
 
 cv::Point OpencvAPI::TemplateMatch(cv::Mat screenImg, cv::Mat templateImg, double threshold, int type, bool& isTrue)
 {
-    cv::Point point;
+    cv::Point point(0, 0);
     cv::Mat result;
-    cv::Mat locations;
     int templateWidth = templateImg.cols;
     int templateHeight = templateImg.rows;
-    // ÔÚ½á¹û¾ØÕóÖÐÕÒµ½Æ¥ÅäÎ»ÖÃ
     cv::Point minLoc, maxLoc;
     double minVal, maxVal;
     int screenWidth = screenImg.cols;
     int screenHeight = screenImg.rows;
+    isTrue = false;
 
     double scale = screenImg.cols / 1280.0;
     int targetWidth = scale * templateWidth;
@@ -61,19 +60,16 @@ cv::Point OpencvAPI::TemplateMatch(cv::Mat screenImg, cv::Mat templateImg, doubl
         templateImg = tempImg;
     }
 
-    cv::matchTemplate(screenImg, templateImg, result, cv::TM_CCORR_NORMED);
+    cv::matchTemplate(screenImg, templateImg, result, type);
     cv::minMaxLoc(result, &minVal, &maxVal, &minLoc, &maxLoc);
-    // »æÖÆ¾ØÐÎ¿ò±ê¼ÇÆ¥ÅäÎ»ÖÃ
+
     if (maxVal >= threshold) {
         cv::rectangle(screenImg, maxLoc, cv::Point(maxLoc.x + templateImg.cols, maxLoc.y + templateImg.rows), cv::Scalar(0, 255, 0), 2);
-        point = cv::Point((maxLoc.x + templateImg.cols / 2)/2, (maxLoc.y + templateImg.rows / 2)/2);
+        point = cv::Point(maxLoc.x + templateImg.cols / 2, maxLoc.y + templateImg.rows / 2);
         isTrue = true;
-        std::cout << "Æ¥Åä³É¹¦" << std::endl;
-    }
-    else
-    {
-        isTrue = false;
+        std::cout << "Æ¥ï¿½ï¿½É¹ï¿½" << std::endl;
     }
     return point;
 }
+
 

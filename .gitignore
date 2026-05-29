@@ -362,3 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 .vs/
+resource/images/gameload.png
+*.png
+.gitignore

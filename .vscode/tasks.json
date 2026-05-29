@@ -1,0 +1,47 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build learnOpencv Debug x64",
+      "type": "shell",
+      "command": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe",
+      "args": [
+        "${workspaceFolder}\\learnOpencv.sln",
+        "/p:Configuration=Debug",
+        "/p:Platform=x64",
+        "/m"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build learnOpencv Release x64",
+      "type": "shell",
+      "command": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe",
+      "args": [
+        "${workspaceFolder}\\learnOpencv.sln",
+        "/p:Configuration=Release",
+        "/p:Platform=x64",
+        "/m"
+      ],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "run learnOpencv Debug x64",
+      "type": "shell",
+      "command": "${workspaceFolder}\\x64\\Debug\\learnOpencv.exe",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "PATH": "${workspaceFolder};D:\\Environment\\opencv\\build\\x64\\vc15\\bin;D:\\Environment\\jsoncpp\\bin;${env:PATH}"
+        }
+      },
+      "dependsOn": "build learnOpencv Debug x64",
+      "problemMatcher": []
+    }
+  ]
+}

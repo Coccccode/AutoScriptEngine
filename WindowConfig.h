@@ -4,26 +4,40 @@
 #include <json/json.h>
 #include <iostream>
 #include <fstream>
+#include <string>
+
 enum ControlType
 {
 	AdbType = 0,
-	WindowApiType
+	WindowApiType = 1
 };
+
 class WindowConfig
 {
 public:
 	WindowConfig();
-	Json::Value parseJsonFromString(const std::string& jsonString);
-	Json::Value readTaskJson(std::string filePath);
 	WindowConfig(std::string filepath);
+
+	Json::Value parsezJsonFromString(const std::string& jsonString);
+	Json::Value readTaskJson(std::string filePath);
+
 	LPCWSTR windowName;
+	LPCWSTR targetWindowName;
+	std::wstring windowNameStorage;
+	std::wstring targetWindowNameStorage;
+	std::string adbPath;
+	std::string deviceSerial;
+	std::string captureBackend;
+	int screenshotIntervalMs;
+	HWND configuredHwnd;
+	HWND configuredTargetHwnd;
+
 	enum WindowType
 	{
 		LEIDIAN = 1,
 		MUMU    = 2
 	};
+
 	int windowType;
-	bool isSub;
 	ControlType controlType;
 };
-

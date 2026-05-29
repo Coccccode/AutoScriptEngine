@@ -12,10 +12,11 @@
 using namespace cv;
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
-	TaskRunner* runner = new TaskRunner();
-	runner->runTask("Start");
+	TaskRunner runner;
+	std::string taskName = argc > 1 ? argv[1] : "JieJieKa";
+	runner.runTask(taskName);
 	return 0;
 }
 

@@ -1,0 +1,357 @@
+{
+  "JieJieKa": {
+    "type": "task",
+    "next": [
+      "ClickImageA"
+    ]
+  },
+  "ClickImageA": {
+    "action": "click",
+    "recognization": "TemplateMatch",
+    "template": "resource/images/jiejieka/yyl.png",
+    "threshold": 0.89,
+    "recognitionTimeoutMs": 10000,
+    "recognitionIntervalMs": 500,
+    "afterDelay": 1,
+    "next": [
+      "ClickIconB"
+    ]
+  },
+  "ClickIconB": {
+    "action": "click",
+    "recognization": "TemplateMatch",
+    "template": "resource/images/jiejieka/jiejie.png",
+    "threshold": 0.89,
+    "recognitionTimeoutMs": 10000,
+    "recognitionIntervalMs": 500,
+    "afterDelay": 1,
+    "next": [
+      "ClickKoiPiece"
+    ]
+  },
+  "ClickKoiPiece": {
+    "action": "click",
+    "recognization": "OCR",
+    "target": "\u5f0f\u795e",
+    "ocrConfig": "config_chinese.txt",
+    "minScore": 0.5,
+    "recognitionTimeoutMs": 10000,
+    "recognitionIntervalMs": 500,
+    "afterDelay": 1,
+    "next": [
+      "ClickIconC"
+    ]
+  },
+  "ClickIconC": {
+    "action": "click",
+    "recognization": "TemplateMatch",
+    "template": "resource/images/jiejieka/plus.png",
+    "threshold": 0.89,
+    "recognitionTimeoutMs": 10000,
+    "recognitionIntervalMs": 500,
+    "afterDelay": 1,
+    "next": [
+      "ClickCrossRegionForTop"
+    ]
+  },
+  "ClickCrossRegionForTop": {
+    "action": "click",
+    "recognization": "OCR",
+    "target": "\u8de8\u533a",
+    "ocrConfig": "config_chinese.txt",
+    "minScore": 0.5,
+    "roi": {
+      "xRatio": 0.26,
+      "yRatio": 0.13,
+      "widthRatio": 0.1,
+      "heightRatio": 0.1
+    },
+    "recognitionTimeoutMs": 10000,
+    "recognitionIntervalMs": 500,
+    "afterDelay": 1,
+    "next": [
+      "ClickLocalRegionForTop"
+    ]
+  },
+  "ClickLocalRegionForTop": {
+    "action": "click",
+    "recognization": "OCR",
+    "target": "\u597d\u53cb",
+    "ocrConfig": "config_chinese.txt",
+    "minScore": 0.5,
+    "roi": {
+      "xRatio": 0.17,
+      "yRatio": 0.13,
+      "widthRatio": 0.1,
+      "heightRatio": 0.1
+    },
+    "recognitionTimeoutMs": 10000,
+    "recognitionIntervalMs": 500,
+    "afterDelay": 1,
+    "next": [
+      "CollectLocalCards"
+    ]
+  },
+  "CollectLocalCards": {
+    "action": "collectPrioritySearch",
+    "group": "jiejieka",
+    "region": "local",
+    "clearExisting": true,
+    "threshold": 0.95,
+    "maxScrolls": 8,
+    "resetScrolls": 12,
+    "recognitionTimeoutMs": 36000,
+    "recognitionIntervalMs": 700,
+    "roi": {
+      "xRatio": 0.16,
+      "yRatio": 0.23,
+      "widthRatio": 0.33,
+      "heightRatio": 0.62
+    },
+    "candidates": [
+      {
+        "name": "gouyu6",
+        "template": "resource/images/jiejieka/gouyu6.png",
+        "threshold": 0.95,
+        "matchType": 5
+      },
+      {
+        "name": "gouyu5",
+        "template": "resource/images/jiejieka/gouyu5.png",
+        "threshold": 0.95,
+        "matchType": 5
+      },
+      {
+        "name": "gouyu4",
+        "template": "resource/images/jiejieka/gouyu4.png",
+        "threshold": 0.95,
+        "matchType": 5
+      },
+      {
+        "name": "douyu6",
+        "template": "resource/images/jiejieka/douyu6.png",
+        "threshold": 0.95,
+        "matchType": 5
+      },
+      {
+        "name": "douyu5",
+        "template": "resource/images/jiejieka/douyu5.png",
+        "threshold": 0.95,
+        "matchType": 5
+      },
+      {
+        "name": "douyu4",
+        "template": "resource/images/jiejieka/douyu4.png",
+        "threshold": 0.95,
+        "matchType": 5
+      },
+      {
+        "name": "gouyu3",
+        "template": "resource/images/jiejieka/gouyu3.png",
+        "threshold": 0.95,
+        "matchType": 5
+      },
+      {
+        "name": "douyu2",
+        "template": "resource/images/jiejieka/douyu2.png",
+        "threshold": 0.95,
+        "matchType": 5
+      }
+    ],
+    "scroll": {
+      "x1Ratio": 0.325,
+      "y1Ratio": 0.78,
+      "x2Ratio": 0.325,
+      "y2Ratio": 0.3,
+      "duration": 850,
+      "jitterX": 18,
+      "jitterY": 22,
+      "durationJitter": 140
+    },
+    "resetAfterScan": false,
+    "stopOnStable": true,
+    "stopWhenNoNewMatchesAfterFirst": false,
+    "stopLowerPriorityOnMatch": true,
+    "stableDiffThreshold": 1.0,
+    "next": [
+      "ClickCrossRegion"
+    ],
+    "requireMatch": false,
+    "matchType": 5
+  },
+  "ClickCrossRegion": {
+    "action": "click",
+    "recognization": "OCR",
+    "target": "\u8de8\u533a",
+    "ocrConfig": "config_chinese.txt",
+    "minScore": 0.5,
+    "roi": {
+      "xRatio": 0.26,
+      "yRatio": 0.13,
+      "widthRatio": 0.1,
+      "heightRatio": 0.1
+    },
+    "recognitionTimeoutMs": 10000,
+    "recognitionIntervalMs": 500,
+    "afterDelay": 1,
+    "next": [
+      "CollectCrossCards"
+    ]
+  },
+  "CollectCrossCards": {
+    "action": "collectPrioritySearch",
+    "group": "jiejieka",
+    "region": "cross",
+    "clearExisting": false,
+    "threshold": 0.95,
+    "maxScrolls": 8,
+    "resetScrolls": 12,
+    "recognitionTimeoutMs": 36000,
+    "recognitionIntervalMs": 700,
+    "roi": {
+      "xRatio": 0.16,
+      "yRatio": 0.23,
+      "widthRatio": 0.33,
+      "heightRatio": 0.62
+    },
+    "candidates": [
+      {
+        "name": "gouyu6",
+        "template": "resource/images/jiejieka/gouyu6.png",
+        "threshold": 0.95,
+        "matchType": 5
+      },
+      {
+        "name": "gouyu5",
+        "template": "resource/images/jiejieka/gouyu5.png",
+        "threshold": 0.95,
+        "matchType": 5
+      },
+      {
+        "name": "gouyu4",
+        "template": "resource/images/jiejieka/gouyu4.png",
+        "threshold": 0.95,
+        "matchType": 5
+      },
+      {
+        "name": "douyu6",
+        "template": "resource/images/jiejieka/douyu6.png",
+        "threshold": 0.95,
+        "matchType": 5
+      },
+      {
+        "name": "douyu5",
+        "template": "resource/images/jiejieka/douyu5.png",
+        "threshold": 0.95,
+        "matchType": 5
+      },
+      {
+        "name": "douyu4",
+        "template": "resource/images/jiejieka/douyu4.png",
+        "threshold": 0.95,
+        "matchType": 5
+      },
+      {
+        "name": "gouyu3",
+        "template": "resource/images/jiejieka/gouyu3.png",
+        "threshold": 0.95,
+        "matchType": 5
+      },
+      {
+        "name": "douyu2",
+        "template": "resource/images/jiejieka/douyu2.png",
+        "threshold": 0.95,
+        "matchType": 5
+      }
+    ],
+    "scroll": {
+      "x1Ratio": 0.325,
+      "y1Ratio": 0.78,
+      "x2Ratio": 0.325,
+      "y2Ratio": 0.3,
+      "duration": 850,
+      "jitterX": 18,
+      "jitterY": 22,
+      "durationJitter": 140
+    },
+    "resetAfterScan": false,
+    "stopOnStable": true,
+    "stopWhenNoNewMatchesAfterFirst": false,
+    "stopLowerPriorityOnMatch": true,
+    "stableDiffThreshold": 1.0,
+    "next": [
+      "SelectBestCard"
+    ],
+    "requireMatch": false,
+    "matchType": 5
+  },
+  "SelectBestCard": {
+    "action": "selectPriorityRecord",
+    "group": "jiejieka",
+    "currentRegion": "cross",
+    "maxScrolls": 8,
+    "resetScrolls": 10,
+    "recognitionIntervalMs": 700,
+    "scroll": {
+      "x1Ratio": 0.325,
+      "y1Ratio": 0.78,
+      "x2Ratio": 0.325,
+      "y2Ratio": 0.3,
+      "duration": 850,
+      "jitterX": 18,
+      "jitterY": 22,
+      "durationJitter": 140
+    },
+    "selectors": {
+      "local": {
+        "recognization": "OCR",
+        "target": "\u597d\u53cb",
+        "ocrConfig": "config_chinese.txt",
+        "minScore": 0.5,
+        "roi": {
+          "xRatio": 0.17,
+          "yRatio": 0.13,
+          "widthRatio": 0.1,
+          "heightRatio": 0.1
+        },
+        "recognitionTimeoutMs": 10000,
+        "afterDelay": 1
+      },
+      "cross": {
+        "recognization": "OCR",
+        "target": "\u8de8\u533a",
+        "ocrConfig": "config_chinese.txt",
+        "minScore": 0.5,
+        "roi": {
+          "xRatio": 0.26,
+          "yRatio": 0.13,
+          "widthRatio": 0.1,
+          "heightRatio": 0.1
+        },
+        "recognitionTimeoutMs": 10000,
+        "afterDelay": 1
+      }
+    },
+    "afterDelay": 1,
+    "next": [
+      "ClickEnterJieJie"
+    ]
+  },
+  "ClickEnterJieJie": {
+    "action": "click",
+    "recognization": "OCR",
+    "target": "\u8fdb\u5165\u7ed3\u754c",
+    "ocrConfig": "config_chinese.txt",
+    "minScore": 0.5,
+    "roi": {
+      "xRatio": 0.61,
+      "yRatio": 0.73,
+      "widthRatio": 0.16,
+      "heightRatio": 0.12
+    },
+    "recognitionTimeoutMs": 10000,
+    "recognitionIntervalMs": 500,
+    "afterDelay": 1,
+    "next": []
+  }
+}

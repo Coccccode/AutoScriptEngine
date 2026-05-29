@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+
+
+    {
+      "name": "Debug learnOpencv x64",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}\\x64\\Debug\\learnOpencv.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [
+        {
+          "name": "PATH",
+          "value": "${workspaceFolder};D:\\Environment\\opencv\\build\\x64\\vc15\\bin;D:\\Environment\\jsoncpp\\bin;${env:PATH}"
+        }
+      ],
+      "externalConsole": true,
+      "preLaunchTask": "build learnOpencv Debug x64"
+    }
+    
+  ]
+}

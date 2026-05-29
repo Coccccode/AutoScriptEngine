@@ -1,4 +1,12 @@
 {
-  "issub": true,
-  "windowType": 1 //1 为雷电模拟器 2 为mumu模拟器
+  "windowType": 2,
+  "controlType": 1,
+  "captureBackend": "wgc",
+  "windowName": "",
+  "targetWindowName": "MuMuNxDevice",
+  "adbPath": "adb",
+  "deviceSerial": "",
+  "screenshotIntervalMs": 1000,
+  "instanceName": "实例1",
+  "device": null
 }
