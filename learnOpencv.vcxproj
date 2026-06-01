@@ -71,13 +71,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\Environment\opencv\build\include;D:\Environment\opencv\build\include\opencv2;D:\Environment\jsoncpp\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;D:\Environment\opencv\build\include;D:\Environment\opencv\build\include\opencv2;D:\Environment\jsoncpp\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Environment\opencv\build\x64\vc15\lib;D:\Environment\jsoncpp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -94,6 +95,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -110,6 +112,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -126,6 +129,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -139,46 +143,51 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AdbController.cpp" />
-    <ClCompile Include="CachedController.cpp" />
-    <ClCompile Include="CaptureService.cpp" />
-    <ClCompile Include="CommonMath.cpp" />
-    <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MouseController.cpp" />
-    <ClCompile Include="OcrApi.cpp" />
-    <ClCompile Include="OpencvAPI.cpp" />
-    <ClCompile Include="TaskManager.cpp" />
-    <ClCompile Include="TaskControl.cpp" />
-    <ClCompile Include="TaskRunner.cpp" />
-    <ClCompile Include="SharedFrameCache.cpp" />
-    <ClCompile Include="WindowsGraphicsCapture.cpp" />
-    <ClCompile Include="WindowCapture.cpp" />
-    <ClCompile Include="WindowConfig.cpp" />
-    <ClCompile Include="WindowController.cpp" />
+    <ClCompile Include="src\AdbController.cpp" />
+    <ClCompile Include="src\CachedController.cpp" />
+    <ClCompile Include="src\CaptureService.cpp" />
+    <ClCompile Include="src\CommonMath.cpp" />
+    <ClCompile Include="src\Controller.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\MouseController.cpp" />
+    <ClCompile Include="src\OcrApi.cpp" />
+    <ClCompile Include="src\OpencvAPI.cpp" />
+    <ClCompile Include="src\TaskManager.cpp" />
+    <ClCompile Include="src\TaskControl.cpp" />
+    <ClCompile Include="src\TaskRunner.cpp" />
+    <ClCompile Include="src\SharedFrameCache.cpp" />
+    <ClCompile Include="src\WindowsGraphicsCapture.cpp" />
+    <ClCompile Include="src\WindowCapture.cpp" />
+    <ClCompile Include="src\WindowConfig.cpp" />
+    <ClCompile Include="src\WindowController.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AdbController.h" />
-    <ClInclude Include="CachedController.h" />
-    <ClInclude Include="CaptureService.h" />
-    <ClInclude Include="CommonMath.h" />
-    <ClInclude Include="Controller.h" />
-    <ClInclude Include="MouseController.h" />
-    <ClInclude Include="OcrApi.h" />
-    <ClInclude Include="OpencvAPI.h" />
-    <ClInclude Include="TaskManager.h" />
-    <ClInclude Include="TaskControl.h" />
-    <ClInclude Include="TaskRunner.h" />
-    <ClInclude Include="SharedFrameCache.h" />
-    <ClInclude Include="WindowsGraphicsCapture.h" />
-    <ClInclude Include="WindowCapture.h" />
-    <ClInclude Include="WindowConfig.h" />
-    <ClInclude Include="WindowController.h" />
+    <ClInclude Include="include\AdbController.h" />
+    <ClInclude Include="include\CachedController.h" />
+    <ClInclude Include="include\CaptureService.h" />
+    <ClInclude Include="include\CommonMath.h" />
+    <ClInclude Include="include\Controller.h" />
+    <ClInclude Include="include\MouseController.h" />
+    <ClInclude Include="include\OcrApi.h" />
+    <ClInclude Include="include\OpencvAPI.h" />
+    <ClInclude Include="include\TaskManager.h" />
+    <ClInclude Include="include\TaskControl.h" />
+    <ClInclude Include="include\TaskRunner.h" />
+    <ClInclude Include="include\SharedFrameCache.h" />
+    <ClInclude Include="include\WindowsGraphicsCapture.h" />
+    <ClInclude Include="include\WindowCapture.h" />
+    <ClInclude Include="include\WindowConfig.h" />
+    <ClInclude Include="include\WindowController.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="config.json" />
-    <None Include="HuoDong.json" />
-    <None Include="Start.json" />
+    <None Include="configs\config.json" />
+    <None Include="configs\config_instance_2.json" />
+    <None Include="tasks\JieJieKa.json" />
+    <None Include="tasks\start.json" />
+    <None Include="task_ui.py" />
+    <None Include="tools\task_ui.py" />
+    <None Include="setup.py" />
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

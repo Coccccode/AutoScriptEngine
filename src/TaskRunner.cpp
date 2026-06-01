@@ -38,15 +38,16 @@ TaskRunner::TaskRunner()
 {
 }
 
-TaskRunner::TaskRunner(Controller* externalController)
+TaskRunner::TaskRunner(Controller* externalController, const std::string& instanceKey)
 {
 	cvapi = new OpencvAPI();
-	config = new WindowConfig("config.json");
+	config = new WindowConfig("configs/config.json");
 	controller = externalController;
 	m_ownsController = externalController == nullptr;
 	mouse = new MouseController();
 	ocr = new OcrApi();
 	m_imageIndex = 0;
+	m_instanceKey = instanceKey;
 	m_visibleScrollIndex = 0;
 
 	if (controller != NULL)
@@ -106,10 +107,11 @@ void TaskRunner::saveCaptureImage(const cv::Mat& image, const std::string& stepN
 {
 	if (image.empty()) return;
 
-	_mkdir("screenshots");
+	_mkdir("artifacts");
+	_mkdir("artifacts\\screenshots");
 
 	char filename[256];
-	sprintf_s(filename, "screenshots/%04d_%s.png", m_imageIndex, stepName.c_str());
+	sprintf_s(filename, "artifacts/screenshots/%04d_%s.png", m_imageIndex, stepName.c_str());
 	cv::imwrite(filename, image);
 	std::cout << "Screenshot saved: " << filename << std::endl;
 	m_imageIndex++;
@@ -117,26 +119,37 @@ void TaskRunner::saveCaptureImage(const cv::Mat& image, const std::string& stepN
 
 void TaskRunner::runTask(std::string taskName)
 {
+	runTaskFile("tasks/" + taskName + ".json", taskName, 0);
+}
+
+bool TaskRunner::runTaskFile(const std::string& filePath, const std::string& taskName, int depth)
+{
+	if (depth > 16)
+	{
+		std::cerr << "task include depth exceeded: " << filePath << " -> " << taskName << std::endl;
+		return false;
+	}
+
 	if (controller == NULL)
 	{
 		std::cout << "controller not found" << std::endl;
-		return;
+		return false;
 	}
 
 	cv::Mat testImg = controller->captureScreen();
 	if (testImg.empty() && config->controlType == WindowApiType)
 	{
 		std::cout << "window not found" << std::endl;
-		return;
+		return false;
 	}
 
-	std::string filepath = taskName + ".json";
-	Json::Value root = readTaskJson(filepath);
+	Json::Value root = readTaskJson(filePath);
 	if (root.isNull() || !root.isMember(taskName))
 	{
-		std::cerr << "failed to load task: " << taskName << std::endl;
-		return;
+		std::cerr << "failed to load task: " << taskName << " from " << filePath << std::endl;
+		return false;
 	}
+	logTaskInfo(root, taskName, filePath);
 
 	Json::Value nextStep = root[taskName]["next"];
 	Json::Value currentStep;
@@ -174,12 +187,67 @@ void TaskRunner::runTask(std::string taskName)
 		std::string action = currentStep.get("action", "null").asString();
 		int sleepTime = currentStep.get("delay", 0).asInt();
 
+		if (currentStep.isMember("Info"))
+		{
+			if (currentStep["Info"].isString())
+			{
+				std::cout << consoleTextFromUtf8(currentStep["Info"].asString()) << std::endl;
+			}
+			else if (currentStep["Info"].isObject())
+			{
+				std::string message = currentStep["Info"].get("message", currentStep["Info"].get("text", "")).asString();
+				if (!message.empty())
+				{
+					std::cout << consoleTextFromUtf8(message) << std::endl;
+				}
+			}
+		}
+
 		if (action == "null")
 		{
 			if (sleepTime > 0)
 			{
 				std::this_thread::sleep_for(std::chrono::seconds(sleepTime));
 			}
+			nextStep = currentStep["next"];
+			i = 0;
+			continue;
+		}
+		if (action == "task" || action == "runTask" || action == "callTask")
+		{
+			std::string nestedFile = currentStep.get("file", currentStep.get("taskFile", currentStep.get("json", ""))).asString();
+			std::string nestedTask = currentStep.get("task", currentStep.get("taskName", currentStep.get("name", ""))).asString();
+			if (nestedFile.empty())
+			{
+				std::cerr << "nested task missing file field in step: " << stepName << std::endl;
+				i++;
+				std::this_thread::sleep_for(std::chrono::milliseconds(500));
+				continue;
+			}
+			if (nestedTask.empty())
+			{
+				nestedTask = nestedFile;
+				size_t slash = nestedTask.find_last_of("/\\");
+				if (slash != std::string::npos) nestedTask = nestedTask.substr(slash + 1);
+				size_t dot = nestedTask.find_last_of('.');
+				if (dot != std::string::npos) nestedTask = nestedTask.substr(0, dot);
+			}
+			if (nestedFile.find(".json") == std::string::npos)
+			{
+				nestedFile += ".json";
+			}
+			if (nestedFile.find('/') == std::string::npos && nestedFile.find('\\') == std::string::npos)
+			{
+				nestedFile = "tasks/" + nestedFile;
+			}
+			std::cout << "run nested task: " << nestedTask << " from " << nestedFile << std::endl;
+			if (!runTaskFile(nestedFile, nestedTask, depth + 1))
+			{
+				i++;
+				std::this_thread::sleep_for(std::chrono::milliseconds(500));
+				continue;
+			}
+			sleepAfterClick(currentStep);
 			nextStep = currentStep["next"];
 			i = 0;
 			continue;
@@ -233,6 +301,49 @@ void TaskRunner::runTask(std::string taskName)
 	{
 		std::cerr << "task exceeded max iterations, stopped" << std::endl;
 	}
+	return maxIterations > 0;
+}
+
+void TaskRunner::logTaskInfo(const Json::Value& root, const std::string& taskName, const std::string& filePath)
+{
+	if (!root.isMember("Info"))
+	{
+		return;
+	}
+
+	const Json::Value& info = root["Info"];
+	if (info.isString())
+	{
+		std::cout << consoleTextFromUtf8(info.asString()) << std::endl;
+		return;
+	}
+
+	if (info.isObject())
+	{
+		std::string title = info.get("title", "").asString();
+		std::string message = info.get("message", info.get("text", "")).asString();
+		std::string line;
+		if (!title.empty())
+		{
+			line += title;
+			if (!message.empty())
+			{
+				line += ": ";
+			}
+		}
+		if (!message.empty())
+		{
+			line += message;
+		}
+		if (line.empty())
+		{
+			line = "task info";
+		}
+		std::cout << consoleTextFromUtf8(line) << std::endl;
+		return;
+	}
+
+	std::cout << "task loaded: " << taskName << " from " << filePath << std::endl;
 }
 
 void TaskRunner::handleClickAction(Json::Value& currentStep, Json::Value& nextStep, int& i, int& sleepTime)

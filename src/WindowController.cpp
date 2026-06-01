@@ -102,8 +102,6 @@ void WindowController::swipe(int x1, int y1, int x2, int y2, int durationMs)
 	double dy = (double)(y2 - y1) / steps;
 
 	HWND target = m_hwnd;
-	SendMessage(target, WM_MOUSEACTIVATE, (WPARAM)GetAncestor(target, GA_ROOT), MAKELPARAM(HTCLIENT, WM_LBUTTONDOWN));
-	SendMessage(target, WM_SETCURSOR, (WPARAM)target, MAKELPARAM(HTCLIENT, WM_MOUSEMOVE));
 	SendMessage(target, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(x1, y1));
 	std::this_thread::sleep_for(std::chrono::milliseconds(stepDelay));
 

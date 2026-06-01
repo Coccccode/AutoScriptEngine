@@ -45,7 +45,7 @@ Json::Value WindowConfig::readTaskJson(std::string filePath)
 	std::ifstream file(filePath);
 	if (!file.is_open()) {
 		std::cerr << "Failed to open the file." << std::endl;
-		return NULL;
+		return Json::Value();
 	}
 
 	std::string jsonData((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
@@ -54,7 +54,7 @@ Json::Value WindowConfig::readTaskJson(std::string filePath)
 
 	if (root.isNull()) {
 		std::cerr << "JSON parsing error." << std::endl;
-		return NULL;
+		return Json::Value();
 	}
 	return root;
 }
@@ -87,13 +87,11 @@ WindowConfig::WindowConfig(std::string filepath)
 	switch (this->windowType)
 	{
 		case LEIDIAN:
-			this->windowNameStorage = L"雷电模拟器";
-			this->targetWindowNameStorag
-            this->windowNameStorage = L"\u96f7\u7535\u6a21\u62df\u5668";
+			this->windowNameStorage = L"\u96f7\u7535\u6a21\u62df\u5668";
 			this->targetWindowNameStorage = L"";
 			break;
 		case MUMU:
-            this->windowNameStorage = L"MuMu\u5b89\u5353\u8bbe\u5907";
+			this->windowNameStorage = L"MuMu\u5b89\u5353\u8bbe\u5907";
 			this->targetWindowNameStorage = L"MuMuNxDevice";
 			break;
 		default:

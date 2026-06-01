@@ -31,8 +31,6 @@ extern "C" HRESULT __stdcall CreateDirect3D11DeviceFromDXGIDevice(
 
 namespace
 {
-	// 注意：这里删除了原有的 std::mutex g_captureMutex; 
-
 	capture::GraphicsCaptureItem createCaptureItemForWindow(HWND hwnd)
 	{
 		auto factory = winrt::get_activation_factory<capture::GraphicsCaptureItem>();
@@ -50,11 +48,14 @@ namespace
 
 struct WindowsGraphicsCapture::Impl
 {
-	std::mutex instanceMutex; // 新增：每个捕捉实例私有的锁
-	
+	std::mutex instanceMutex;
 	winrt::com_ptr<ID3D11Device> d3dDevice;
 	winrt::com_ptr<ID3D11DeviceContext> d3dContext;
 	d3d11::IDirect3DDevice winrtDevice = nullptr;
+	HWND currentHwnd = NULL;
+	capture::GraphicsCaptureItem item = nullptr;
+	capture::Direct3D11CaptureFramePool framePool = nullptr;
+	capture::GraphicsCaptureSession session = nullptr;
 
 	Impl()
 	{
@@ -71,7 +72,6 @@ struct WindowsGraphicsCapture::Impl
 		}
 
 		UINT flags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
-
 		D3D_FEATURE_LEVEL featureLevels[] = {
 			D3D_FEATURE_LEVEL_11_1,
 			D3D_FEATURE_LEVEL_11_0,
@@ -98,20 +98,47 @@ struct WindowsGraphicsCapture::Impl
 		winrtDevice = inspectable.as<d3d11::IDirect3DDevice>();
 	}
 
-	cv::Mat capture(HWND hwnd)
+	void closeSession()
 	{
-		capture::GraphicsCaptureItem item = createCaptureItemForWindow(hwnd);
-		auto size = item.Size();
-		if (size.Width <= 0 || size.Height <= 0) return cv::Mat();
+		if (session != nullptr)
+		{
+			session.Close();
+			session = nullptr;
+		}
+		if (framePool != nullptr)
+		{
+			framePool.Close();
+			framePool = nullptr;
+		}
+		item = nullptr;
+		currentHwnd = NULL;
+	}
 
-		auto framePool = capture::Direct3D11CaptureFramePool::CreateFreeThreaded(
+	bool ensureSession(HWND hwnd)
+	{
+		if (hwnd == NULL || !IsWindow(hwnd)) return false;
+		if (session != nullptr && framePool != nullptr && currentHwnd == hwnd) return true;
+
+		closeSession();
+		item = createCaptureItemForWindow(hwnd);
+		auto size = item.Size();
+		if (size.Width <= 0 || size.Height <= 0) return false;
+
+		framePool = capture::Direct3D11CaptureFramePool::CreateFreeThreaded(
 			winrtDevice,
 			directx::DirectXPixelFormat::B8G8R8A8UIntNormalized,
 			2,
 			size);
-		auto session = framePool.CreateCaptureSession(item);
+		session = framePool.CreateCaptureSession(item);
 		session.IsCursorCaptureEnabled(false);
 		session.StartCapture();
+		currentHwnd = hwnd;
+		return true;
+	}
+
+	cv::Mat capture(HWND hwnd)
+	{
+		if (!ensureSession(hwnd)) return cv::Mat();
 
 		capture::Direct3D11CaptureFrame frame = nullptr;
 		for (int i = 0; i < 20; ++i)
@@ -123,8 +150,6 @@ struct WindowsGraphicsCapture::Impl
 
 		if (frame == nullptr)
 		{
-			session.Close();
-			framePool.Close();
 			return cv::Mat();
 		}
 
@@ -164,9 +189,6 @@ struct WindowsGraphicsCapture::Impl
 
 		cv::Mat bgr;
 		cv::cvtColor(bgra, bgr, cv::COLOR_BGRA2BGR);
-
-		session.Close();
-		framePool.Close();
 		return bgr;
 	}
 };
@@ -186,6 +208,17 @@ WindowsGraphicsCapture::WindowsGraphicsCapture()
 
 WindowsGraphicsCapture::~WindowsGraphicsCapture()
 {
+	if (impl != nullptr)
+	{
+		try
+		{
+			std::lock_guard<std::mutex> lock(impl->instanceMutex);
+			impl->closeSession();
+		}
+		catch (...)
+		{
+		}
+	}
 	delete impl;
 }
 
@@ -195,7 +228,6 @@ cv::Mat WindowsGraphicsCapture::capture(HWND hwnd)
 
 	try
 	{
-		// 使用实例内部的锁，互不干扰
 		std::lock_guard<std::mutex> lock(impl->instanceMutex);
 		return impl->capture(hwnd);
 	}

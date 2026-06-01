@@ -1,0 +1,12 @@
+{
+  "windowType": 2,
+  "controlType": 1,
+  "captureBackend": "wgc",
+  "windowName": "",
+  "targetWindowName": "MuMuNxDevice",
+  "adbPath": "adb",
+  "deviceSerial": "",
+  "screenshotIntervalMs": 1000,
+  "instanceName": "实例2",
+  "device": null
+}

@@ -18,7 +18,7 @@ public:
 	WindowConfig();
 	WindowConfig(std::string filepath);
 
-	Json::Value parsezJsonFromString(const std::string& jsonString);
+	Json::Value parseJsonFromString(const std::string& jsonString);
 	Json::Value readTaskJson(std::string filePath);
 
 	LPCWSTR windowName;

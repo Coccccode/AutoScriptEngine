@@ -14,7 +14,6 @@
 #include "WindowController.h"
 #include "AdbController.h"
 #include "Controller.h"
-#include <json/json.h>
 #include "OpencvAPI.h"
 #include "MouseController.h"
 #include "OcrApi.h"
@@ -22,10 +21,6 @@
 class TaskRunner
 {
 public:
-// 在类成员变量区域新增：
-	std::string m_instanceKey;
-
-// 修改构造函数声明：
 	TaskRunner();
 	TaskRunner(Controller* externalController, const std::string& instanceKey = "default");
 	~TaskRunner();
@@ -66,6 +61,8 @@ private:
 	void handlePrioritySearchAction(Json::Value& currentStep, Json::Value& nextStep, int& i, int& sleepTime);
 	void handleCollectPrioritySearchAction(Json::Value& currentStep, Json::Value& nextStep, int& i, int& sleepTime);
 	void handleSelectPriorityRecordAction(Json::Value& currentStep, Json::Value& nextStep, int& i, int& sleepTime);
+	bool runTaskFile(const std::string& filePath, const std::string& taskName, int depth = 0);
+	void logTaskInfo(const Json::Value& root, const std::string& taskName, const std::string& filePath);
 
 	bool resolveClickPoint(Json::Value& currentStep, const std::string& imageName, cv::Point& clickPoint);
 	bool waitResolveClickPoint(Json::Value& currentStep, const std::string& imageName, cv::Point& clickPoint);
@@ -88,6 +85,7 @@ private:
 	void saveCaptureImage(const cv::Mat& image, const std::string& stepName);
 	int m_imageIndex;
 	bool m_ownsController;
+	std::string m_instanceKey;
 	std::vector<PriorityRecord> m_priorityRecords;
 	std::string m_visibleRegion;
 	int m_visibleScrollIndex;

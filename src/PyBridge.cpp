@@ -223,7 +223,7 @@ namespace
 	SharedDevice* sharedDevice(const std::string& configPath)
 	{
 		std::lock_guard<std::mutex> lock(g_sharedDeviceMutex);
-		std::string key = configPath.empty() ? "config.json" : configPath;
+		std::string key = configPath.empty() ? "configs/config.json" : configPath;
 		std::string configJson = readTextFile(configPath);
 		auto& slot = g_sharedDevices[key];
 		if (!slot)
@@ -460,26 +460,31 @@ namespace
 		TaskControl::requestStop();
 	}
 
-	py::bytes latestPng(int maxWidth, int maxHeight, int maxAgeMs)
+	py::bytes latestPngFor(const std::string& configPath, int maxWidth, int maxHeight, int maxAgeMs)
 	{
 		cv::Mat image;
-		if (!SharedFrameCache::latest(image, maxAgeMs))
+		if (!SharedFrameCache::latest(configPath, image, maxAgeMs))
 		{
 			return py::bytes();
 		}
 		return matToPngBytes(resizeToFit(image, maxWidth, maxHeight));
 	}
 
+	py::bytes latestPng(int maxWidth, int maxHeight, int maxAgeMs)
+	{
+		return latestPngFor("", maxWidth, maxHeight, maxAgeMs);
+	}
+
 	py::bytes capturePng(const std::string& configPath, int maxWidth, int maxHeight)
 	{
 		bridgeDebug("capturePng begin");
 		cv::Mat image;
-		if (!g_captureService.isRunning())
+		if (!isCaptureRunning(configPath))
 		{
 			startCapture(configPath, 30);
 		}
 
-		if (!SharedFrameCache::waitLatest(image, 3000, 500))
+		if (!SharedFrameCache::waitLatest(configPath, image, 3000, 500))
 		{
 			CachedController* device = nullptr;
 			{
@@ -547,12 +552,13 @@ namespace
 PYBIND11_MODULE(learnopencv_py, m)
 {
 	m.doc() = "pybind11 bindings for learnOpencv automation";
-	m.def("run_task", &runTask, py::arg("task_name"), py::arg("config_path") = "config.json", py::arg("log_callback") = py::none());
+	m.def("run_task", &runTask, py::arg("task_name"), py::arg("config_path") = "configs/config.json", py::arg("log_callback") = py::none());
 	m.def("request_stop", &requestStop);
-	m.def("start_capture", &startCapture, py::arg("config_path") = "config.json", py::arg("fps") = 30);
+	m.def("start_capture", &startCapture, py::arg("config_path") = "configs/config.json", py::arg("fps") = 30);
 	m.def("stop_capture", &stopCapture);
 	m.def("is_capture_running", &isCaptureRunning);
 	m.def("is_task_running", &isTaskRunning);
+	m.def("latest_png_for", &latestPngFor, py::arg("config_path") = "configs/config.json", py::arg("max_width") = 0, py::arg("max_height") = 0, py::arg("max_age_ms") = 0);
 	m.def("latest_png", &latestPng, py::arg("max_width") = 0, py::arg("max_height") = 0, py::arg("max_age_ms") = 0);
-	m.def("capture_png", &capturePng, py::arg("config_path") = "config.json", py::arg("max_width") = 0, py::arg("max_height") = 0);
+	m.def("capture_png", &capturePng, py::arg("config_path") = "configs/config.json", py::arg("max_width") = 0, py::arg("max_height") = 0);
 }

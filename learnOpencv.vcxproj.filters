@@ -1,55 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="????">
+    <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="????">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4B04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="??????">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Configs">
+      <UniqueIdentifier>{67DA6AB6-F800-4C08-8B7A-83BB121AAD01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tasks">
+      <UniqueIdentifier>{54E5A6B4-5F7A-4E7A-A4F6-03A91B7C11A0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Python">
+      <UniqueIdentifier>{E25A9A3D-23E8-4B41-A7EF-B4C23C4E41D1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AdbController.cpp" />
-    <ClCompile Include="CachedController.cpp" />
-    <ClCompile Include="CaptureService.cpp" />
-    <ClCompile Include="CommonMath.cpp" />
-    <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MouseController.cpp" />
-    <ClCompile Include="OcrApi.cpp" />
-    <ClCompile Include="OpencvAPI.cpp" />
-    <ClCompile Include="TaskManager.cpp" />
-    <ClCompile Include="TaskRunner.cpp" />
-    <ClCompile Include="WindowsGraphicsCapture.cpp" />
-    <ClCompile Include="WindowCapture.cpp" />
-    <ClCompile Include="WindowConfig.cpp" />
-    <ClCompile Include="WindowController.cpp" />
+    <ClCompile Include="src\AdbController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CachedController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CaptureService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CommonMath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MouseController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OcrApi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpencvAPI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SharedFrameCache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TaskControl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TaskManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TaskRunner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowCapture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowConfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowsGraphicsCapture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AdbController.h" />
-    <ClInclude Include="CachedController.h" />
-    <ClInclude Include="CaptureService.h" />
-    <ClInclude Include="CommonMath.h" />
-    <ClInclude Include="Controller.h" />
-    <ClInclude Include="MouseController.h" />
-    <ClInclude Include="OcrApi.h" />
-    <ClInclude Include="OpencvAPI.h" />
-    <ClInclude Include="TaskManager.h" />
-    <ClInclude Include="TaskRunner.h" />
-    <ClInclude Include="WindowsGraphicsCapture.h" />
-    <ClInclude Include="WindowCapture.h" />
-    <ClInclude Include="WindowConfig.h" />
-    <ClInclude Include="WindowController.h" />
+    <ClInclude Include="include\AdbController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CachedController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CaptureService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CommonMath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MouseController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\OcrApi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\OpencvAPI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SharedFrameCache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TaskControl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TaskManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TaskRunner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WindowCapture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WindowConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WindowController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WindowsGraphicsCapture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="config.json" />
-    <None Include="HuoDong.json" />
-    <None Include="Start.json" />
+    <None Include="configs\config.json">
+      <Filter>Configs</Filter>
+    </None>
+    <None Include="configs\config_instance_2.json">
+      <Filter>Configs</Filter>
+    </None>
+    <None Include="tasks\JieJieKa.json">
+      <Filter>Tasks</Filter>
+    </None>
+    <None Include="tasks\start.json">
+      <Filter>Tasks</Filter>
+    </None>
+    <None Include="task_ui.py">
+      <Filter>Python</Filter>
+    </None>
+    <None Include="tools\task_ui.py">
+      <Filter>Python</Filter>
+    </None>
+    <None Include="setup.py">
+      <Filter>Python</Filter>
+    </None>
+    <None Include="README.md">
+      <Filter>Python</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 {
+  "Info": "启动流程：打开游戏，等待加载，并进入游戏主界面。",
   "Start": {
     "type": "task",
     "next": [
@@ -6,6 +7,7 @@
     ]
   },
   "OpenApp": {
+    "Info": "点击桌面上的游戏图标，开始启动应用。",
     "action": "click",
     "recognization": "TemplateMatch",
     "template": "resource/images/app.png",
@@ -15,6 +17,7 @@
     ]
   },
   "RandomClickAfterLaunch": {
+    "Info": "应用启动后随机点击空白区域，跳过可能的启动遮罩。",
     "action": "click",
     "recognization": "DirectHint",
     "random": true,
@@ -28,9 +31,10 @@
     ]
   },
   "ClickGameStart": {
+    "Info": "识别“进入游戏”按钮并点击，进入主界面。",
     "action": "click",
     "recognization": "OCR",
-    "target": "\u8fdb\u5165\u6e38\u620f",
+    "target": "进入游戏",
     "ocrConfig": "config_chinese.txt",
     "roi": {
       "xRatio": 0,

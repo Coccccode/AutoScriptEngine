@@ -1,4 +1,5 @@
 {
+  "Info": "结界卡流程：进入阴阳寮，收集本区与跨区结界卡，筛选最高优先级卡片并进入结界。",
   "JieJieKa": {
     "type": "task",
     "next": [
@@ -6,6 +7,7 @@
     ]
   },
   "ClickImageA": {
+    "Info": "点击阴阳寮入口图标。",
     "action": "click",
     "recognization": "TemplateMatch",
     "template": "resource/images/jiejieka/yyl.png",
@@ -18,6 +20,7 @@
     ]
   },
   "ClickIconB": {
+    "Info": "点击结界突破或结界卡功能入口。",
     "action": "click",
     "recognization": "TemplateMatch",
     "template": "resource/images/jiejieka/jiejie.png",
@@ -30,9 +33,10 @@
     ]
   },
   "ClickKoiPiece": {
+    "Info": "识别“式神”相关入口并点击，进入可放置结界卡页面。",
     "action": "click",
     "recognization": "OCR",
-    "target": "\u5f0f\u795e",
+    "target": "式神",
     "ocrConfig": "config_chinese.txt",
     "minScore": 0.5,
     "recognitionTimeoutMs": 10000,
@@ -43,6 +47,7 @@
     ]
   },
   "ClickIconC": {
+    "Info": "点击添加或展开按钮，准备切换筛选区域。",
     "action": "click",
     "recognization": "TemplateMatch",
     "template": "resource/images/jiejieka/plus.png",
@@ -55,9 +60,10 @@
     ]
   },
   "ClickCrossRegionForTop": {
+    "Info": "先点一次“跨区”，确认顶部区域切换按钮可用。",
     "action": "click",
     "recognization": "OCR",
-    "target": "\u8de8\u533a",
+    "target": "跨区",
     "ocrConfig": "config_chinese.txt",
     "minScore": 0.5,
     "roi": {
@@ -74,9 +80,10 @@
     ]
   },
   "ClickLocalRegionForTop": {
+    "Info": "切换回“好友”区域，准备优先扫描本区结界卡。",
     "action": "click",
     "recognization": "OCR",
-    "target": "\u597d\u53cb",
+    "target": "好友",
     "ocrConfig": "config_chinese.txt",
     "minScore": 0.5,
     "roi": {
@@ -93,6 +100,7 @@
     ]
   },
   "CollectLocalCards": {
+    "Info": "开始扫描本区结界卡，按优先级记录可用卡片。",
     "action": "collectPrioritySearch",
     "group": "jiejieka",
     "region": "local",
@@ -180,9 +188,10 @@
     "matchType": 5
   },
   "ClickCrossRegion": {
+    "Info": "切换到“跨区”区域，开始扫描跨区结界卡。",
     "action": "click",
     "recognization": "OCR",
-    "target": "\u8de8\u533a",
+    "target": "跨区",
     "ocrConfig": "config_chinese.txt",
     "minScore": 0.5,
     "roi": {
@@ -199,6 +208,7 @@
     ]
   },
   "CollectCrossCards": {
+    "Info": "扫描跨区结界卡，并和本区记录一起比较优先级。",
     "action": "collectPrioritySearch",
     "group": "jiejieka",
     "region": "cross",
@@ -286,6 +296,7 @@
     "matchType": 5
   },
   "SelectBestCard": {
+    "Info": "从已记录的卡片里选择最高优先级目标，并定位到对应区域与位置。",
     "action": "selectPriorityRecord",
     "group": "jiejieka",
     "currentRegion": "cross",
@@ -305,7 +316,7 @@
     "selectors": {
       "local": {
         "recognization": "OCR",
-        "target": "\u597d\u53cb",
+        "target": "好友",
         "ocrConfig": "config_chinese.txt",
         "minScore": 0.5,
         "roi": {
@@ -319,7 +330,7 @@
       },
       "cross": {
         "recognization": "OCR",
-        "target": "\u8de8\u533a",
+        "target": "跨区",
         "ocrConfig": "config_chinese.txt",
         "minScore": 0.5,
         "roi": {
@@ -338,9 +349,10 @@
     ]
   },
   "ClickEnterJieJie": {
+    "Info": "点击“进入结界”，进入最终选中的结界卡。",
     "action": "click",
     "recognization": "OCR",
-    "target": "\u8fdb\u5165\u7ed3\u754c",
+    "target": "进入结界",
     "ocrConfig": "config_chinese.txt",
     "minScore": 0.5,
     "roi": {

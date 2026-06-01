@@ -1,4 +1,4 @@
--#ifndef WIN32_LEAN_AND_MEAN
+#ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
 #include <winsock2.h>
@@ -49,7 +49,12 @@ bool OcrApi::start()
 
 	char currentDir[MAX_PATH];
 	GetCurrentDirectoryA(MAX_PATH, currentDir);
-	std::string ocrDir = std::string(currentDir) + "\\PaddleOCR-json_v.1.3.1";
+	std::string ocrDir = std::string(currentDir) + "\\vendor\\PaddleOCR-json_v.1.3.1";
+	DWORD attrs = GetFileAttributesA(ocrDir.c_str());
+	if (attrs == INVALID_FILE_ATTRIBUTES || !(attrs & FILE_ATTRIBUTE_DIRECTORY))
+	{
+		ocrDir = std::string(currentDir) + "\\PaddleOCR-json_v.1.3.1";
+	}
 
 	if (!SetCurrentDirectoryA(ocrDir.c_str()))
 	{
