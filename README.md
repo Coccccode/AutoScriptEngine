@@ -1,4 +1,4 @@
-# learnOpencv
+# AutoScriptEngine
 
 一个以 C++ 为核心、Python UI 为操作层的自动化项目。当前主 UI 已迁移到 `PySide6`，保留旧 `Tk/customtkinter` 版本作为参考实现。
 
